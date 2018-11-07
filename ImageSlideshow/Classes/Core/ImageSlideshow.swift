@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+public protocol ImageSlideshowDelegate: class {
+    func didChangePage(page: Int)
+}
+
 /** 
     Used to represent position of the Page Control
     - hidden: Page Control is hidden
@@ -87,6 +92,13 @@ open class ImageSlideshow: UIView {
                 pageIndicatorPosition = PageIndicatorPosition(vertical: .customUnder(padding: padding-30))
             }
         }
+    }
+    
+    func getNextPage() {
+    }
+    
+    func getPrevPage() {
+        
     }
 
     /// Current page
