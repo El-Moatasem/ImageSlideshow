@@ -41,6 +41,7 @@ open class ImageSlideshow: UIView {
 
     /// Scroll View to wrap the slideshow
     public let scrollView = UIScrollView()
+    weak var delegate: ImageSlideshowDelegate?
 
     /// Page Control shown in the slideshow
     @available(*, deprecated, message: "Use pageIndicator.view instead")
@@ -94,11 +95,26 @@ open class ImageSlideshow: UIView {
         }
     }
     
-    func getNextPage() {
+    open func getNextPage() {
+        if scrollViewPage < scrollViewImages.count {
+            scrollViewPage += 1
+        }
+        else {
+            scrollViewPage = 1
+        }
+        setScrollViewPage(scrollViewPage, animated: false)
+        self.delegate?.didChangePage(page: scrollViewPage)
     }
     
-    func getPrevPage() {
-        
+    open func getPrevPage() {
+        if scrollViewPage > 0 {
+            scrollViewPage -= 1
+        }
+        else {
+            scrollViewPage = scrollViewImages.count - 1
+        }
+        setScrollViewPage(scrollViewPage, animated: false)
+        self.delegate?.didChangePage(page: scrollViewPage)
     }
 
     /// Current page
